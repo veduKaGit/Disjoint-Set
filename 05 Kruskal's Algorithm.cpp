@@ -1,3 +1,17 @@
+// How many edges does a minimum spanning tree has? 
+// A minimum spanning tree has (V – 1) edges where V is the number of vertices in the given graph. 
+
+// Below are the steps for finding MST using Kruskal’s algorithm:
+// 1. Sort all the edges in non-decreasing order of their weight. 
+// 2. Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it. 
+// 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
+
+// Step #2 uses the Union-Find algorithm to detect cycles.
+// The algorithm is a Greedy Algorithm. 
+// The Greedy Choice is to pick the smallest weight edge that does not cause a cycle in the MST(min spanning tree) constructed so far. 
+
+
+	
 // C++ program for Kruskal's algorithm to find Minimum Spanning Tree 
 // of a given connected, undirected and weighted graph 
 #include <bits/stdc++.h> 
