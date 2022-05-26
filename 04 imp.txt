@@ -1,0 +1,3 @@
+The two techniques (union by rank + path compression) complement each other. 
+The time complexity of each operation becomes even SMALLER than O(Logn). 
+In fact, AMORTIZED time complexity effectively becomes small CONSTANT. 
