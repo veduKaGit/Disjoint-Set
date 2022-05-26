@@ -4,26 +4,25 @@
 // If x is root of a subtree, then path (to root) from all nodes under x also compresses.
 
 
-Let the subset {0, 1, .. 9} be represented as below and find() is called
-for element 3.
-             9
-         /   |   \  
-        4    5    6
-       /         /  \
-      0         7    8
-     /        
-    3
-   / \         
-  1   2
-When find() is called for 3, we traverse up and find 9 as representative
-of this subset. With path compression, we also make 3 and 0 as the child of 9 so 
-that when find() is called next time for 0, 1, 2 or 3, the path to root is reduced.
+// Let the subset {0, 1, .. 9} be represented as below and find() is called for element 3.
+//              9
+//          /   |   \  
+//         4    5    6
+//        /         /  \
+//       0         7    8
+//      /        
+//     3
+//    / \         
+//   1   2
+// When find() is called for 3, we traverse up and find 9 as representative
+// of this subset. With path compression, we also make 3 and 0 as the child of 9 so 
+// that when find() is called next time for 0, 1, 2 or 3, the path to root is reduced.
 
-        --------9-------
-      /   /    /  \      \
-     0   4    5    6       3 
-                  /  \    /  \
-                 7    8   1   2
+//         --------9-------
+//       /   /    /  \      \
+//      0   4    5    6       3 
+//                   /  \    /  \
+//                  7    8   1   2
 
 
 #include <iostream>
@@ -47,9 +46,9 @@ int find(int x)
     if(parent[x]==x)
         return x;
     
-    parent[x] = find(parent[x]);
+    parent[x] = find(parent[x]); //just 2 lines changed
     
-    return parent[x];
+    return parent[x];  //just 2 lines changed
     
 }
 
