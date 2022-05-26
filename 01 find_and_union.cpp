@@ -4,7 +4,7 @@ using namespace std;
 
 
 int parent[n];  //this array is {0,1,2,3,4}....since we initialized it
-//paernt[] will be used in find operation....since on every union operation, it gets updated
+//parent[] will be used in find operation....since on every union operation, it gets updated
 
 void initialize()  //make every element parent of itself
 {
@@ -19,7 +19,7 @@ int find(int x)  //root of the tree will be the representative element of each d
     if(parent[x]==x)  //this is when that element is root of the tree
         return x;
     else
-        return find(parent[x]);  //if not the root of the tree....the we move towards the root
+        return find(parent[x]);  //if not the root of the tree....then we move towards the root
     
 }
 
