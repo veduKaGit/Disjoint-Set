@@ -1,4 +1,4 @@
-// Time complexity for both find and union operations: O(n)
+// Time complexity for each find/union operations: O(n)
 
 
 #include <iostream>
