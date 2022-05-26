@@ -3,7 +3,7 @@
 
 // The idea is to always attach smaller depth tree under the root of the deeper tree. 
 // This technique is called union by rank. 
-// The term rank is preferred instead of height because if path compression technique (we have discussed it below) is used, 
+// The term rank is preferred instead of height because if path compression technique (we have discussed it later) is used, 
 // then rank is not always equal to height. Also, size (in place of height) of trees can also be used as rank. 
 // Using size as rank also yields worst case time complexity as O(Logn).
 
@@ -14,7 +14,7 @@ using namespace std;
 
 
 int parent[n];
-int ranks[n];  //this is the additional array here
+int ranks[n];  //this is the additional array....here rank[i] means the height of the tree rooted with the ith element
 
 
 void initialize()
@@ -22,13 +22,13 @@ void initialize()
     for(int i=0; i<n; i++)
     {
         parent[i]=i;
-        ranks[i]=0;
+        ranks[i]=0;  //initially, rank of all the elements =0
     }
 }
 
-int find(int x)
+int find(int x)  // NO CHANGE in find function
 {
-    if(parent[x]==x)
+    if(parent[x]==x)  
         return x;
     else
         return find(parent[x]);
@@ -37,27 +37,25 @@ int find(int x)
 
 void unions(int x, int y)
 {
-    int x_rep = find(x);
+    int x_rep = find(x);   //find representative element for both of them
     int y_rep = find(y);
     
-    if(x_rep==y_rep)
+    if(x_rep==y_rep)  //if already a part of the same disjoint set
         return;
     
-    if(ranks[x_rep]<ranks[y_rep])
-        parent[x_rep] = y_rep;
+//     The idea is to always attach smaller depth tree under the root of the deeper tree. 
+    if(ranks[x_rep]<ranks[y_rep])  
+        parent[x_rep] = y_rep;  //imp
     
     else if(ranks[y_rep]<ranks[x_rep])
-        parent[y_rep]=x_rep;
+        parent[y_rep]=x_rep;  //imp
     
-    else
+    else  //if equal height
         {
-            parent[y_rep] = x_rep;
+            parent[y_rep] = x_rep;  //imp
             
-            ranks[x_rep]++;
+            ranks[x_rep]++; //imp  .....very imp
         }
-    
-    
-   
 }
 
 int main() 
