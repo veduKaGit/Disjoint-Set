@@ -3,10 +3,10 @@ using namespace std;
 #define n 5
 
 
-int parent[n];
+int parent[n];  //this array is {0,1,2,3,4}....since we initialized it
+//paernt[] will be used in find operation....since on every union operation, it gets updated
 
-
-void initialize()
+void initialize()  //make every element parent of itself
 {
     for(int i=0; i<n; i++)
     {
