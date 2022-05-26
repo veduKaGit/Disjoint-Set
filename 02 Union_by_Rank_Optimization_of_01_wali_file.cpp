@@ -1,13 +1,20 @@
 // Time complexity of find and union operations: 
 //say we did m operations(find or union), the time complexity = O(m * log n) => same as O(log n)
 
+// The idea is to always attach smaller depth tree under the root of the deeper tree. 
+// This technique is called union by rank. 
+// The term rank is preferred instead of height because if path compression technique (we have discussed it below) is used, 
+// then rank is not always equal to height. Also, size (in place of height) of trees can also be used as rank. 
+// Using size as rank also yields worst case time complexity as O(Logn).
+
+
 #include <iostream>
 using namespace std;
 #define n 5
 
 
 int parent[n];
-int ranks[n];
+int ranks[n];  //this is the additional array here
 
 
 void initialize()
