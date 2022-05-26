@@ -1,3 +1,6 @@
+// Time complexity of find and union operations: 
+//say we did m operations(find or union), the time complexity = O(m * log n) => same as O(log n)
+
 #include <iostream>
 using namespace std;
 #define n 5
