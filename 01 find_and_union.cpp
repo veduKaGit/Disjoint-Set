@@ -1,3 +1,6 @@
+// Time complexity for both find and union operations: O(n)
+
+
 #include <iostream>
 using namespace std;
 #define n 5
