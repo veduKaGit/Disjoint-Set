@@ -14,24 +14,24 @@ void initialize()  //make every element parent of itself
     }
 }
 
-int find(int x)
+int find(int x)  //root of the tree will be the representative element of each disjoint set
 {
-    if(parent[x]==x)
+    if(parent[x]==x)  //this is when that element is root of the tree
         return x;
     else
-        return find(parent[x]);
+        return find(parent[x]);  //if not the root of the tree....the we move towards the root
     
 }
 
 void unions(int x, int y)
 {
-    int x_rep = find(x);
+    int x_rep = find(x); //find representative element for both of them
     int y_rep = find(y);
     
-    if(x_rep==y_rep)
+    if(x_rep==y_rep)  //if already a part of the same disjoint set
     return;
     
-    parent[y_rep]=x_rep;
+    parent[y_rep]=x_rep;  //if not a part of the same disjoint set
 }
 
 int main() 
