@@ -43,18 +43,20 @@ void unions(int x, int y)
     if(x_rep==y_rep)  //if already a part of the same disjoint set
         return;
     
-//     The idea is to always attach smaller depth tree under the root of the deeper tree. 
+// The idea is to always attach smaller depth tree under the root of the deeper tree. 
+    
+//we first found representative, now we compare RANK OF REPRESENTATIVES!
     if(ranks[x_rep]<ranks[y_rep])  
-        parent[x_rep] = y_rep;  //imp
+        parent[x_rep] = y_rep;  
     
     else if(ranks[y_rep]<ranks[x_rep])
-        parent[y_rep]=x_rep;  //imp
+        parent[y_rep]=x_rep;  
     
     else  //if equal height
         {
-            parent[y_rep] = x_rep;  //imp
-            
-            ranks[x_rep]++; //imp  .....very imp
+            parent[y_rep] = x_rep;  
+        
+            ranks[x_rep]++; //imp.....very imp
         }
 }
 
