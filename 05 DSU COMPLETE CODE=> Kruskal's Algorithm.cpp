@@ -1,7 +1,8 @@
-// How many edges does a minimum spanning tree has? 
-// A minimum spanning tree has (V – 1) edges where V is the number of vertices in the given graph. 
+//ALSO IN THE DISJOINT SET PART!
+//can also be used in cycle detection
 
-// Below are the steps for finding MST using Kruskal’s algorithm:
+
+// Below are the steps for finding MST using Kruskal’s algorithm
 // 1. Sort all the edges in non-decreasing order of their weight. 
 // 2. Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it. 
 // 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
@@ -10,36 +11,29 @@
 // The algorithm is a Greedy Algorithm. 
 // The Greedy Choice is to pick the smallest weight edge that does not cause a cycle in the MST(min spanning tree) constructed so far. 
 
-
-
+// Time complexity is O(E log V), V being the number of vertices.
 
 #include<bits/stdc++.h>
 using namespace std;
 
-// Creating shortcut for an integer pair
-typedef pair<int, int> iPair;
+typedef pair<int, int> iPair;  // Creating shortcut for an integer pair
 
-// Structure to represent a graph
 struct Graph
 {
 	int V, E;
 	vector< pair<int, iPair> > edges;
 
-	// Constructor
-	Graph(int V, int E)
+	Graph(int V, int E)  //constructor
 	{
 		this->V = V;
 		this->E = E;
 	}
 
-	// Utility function to add an edge
-	void addEdge(int u, int v, int w)
+	void addEdge(int u, int v, int w)  	// Utility function to add an edge
 	{
-		edges.push_back({w, {u, v}});
+		edges.push_back({w, {u, v}});  //IMP...push_back(int,pair<int,int>)....push_back(weight,{src,destination})....so that we can sort by weight
 	}
 
-	// Function to find MST using Kruskal's
-	// MST algorithm
 	int kruskalMST();
 };
 
@@ -49,68 +43,56 @@ struct DisjointSets
 	int *parent, *rnk;
 	int n;
 
-	// Constructor.
-	DisjointSets(int n)
+	DisjointSets(int n) // Constructor
 	{
-		// Allocate memory
-		this->n = n;
+		this->n = n;  // Constructor.
 		parent = new int[n+1];
 		rnk = new int[n+1];
 
-		// Initially, all vertices are in
-		// different sets and have rank 0.
-		for (int i = 0; i <= n; i++)
+		for (int i = 0; i <= n; i++)   
 		{
-			rnk[i] = 0;
-
-			//every element is parent of itself
-			parent[i] = i;
+			rnk[i] = 0;     // Initially, all vertices are in different sets and have rank 0.
+			parent[i] = i;  //every element is parent of itself
 		}
 	}
+	
+	//both pathcompression and union by find are COMBINED in kruskal!!! => best time complexity
 
-	// Find the parent of a node 'u'
-	// Path Compression
-	int find(int u)
+	int find(int u)  // Path Compression
 	{
-		/* Make the parent of the nodes in the path
-		from u--> parent[u] point to parent[u] */
 		if (u != parent[u])
 			parent[u] = find(parent[u]);
 		return parent[u];
 	}
 
-	// Union by rank
-	void merge(int x, int y)
+	void merge(int x, int y)    // Union by rank
 	{
 		x = find(x), y = find(y);
 
-		/* Make tree with smaller height
-		a subtree of the other tree */
-		if (rnk[x] > rnk[y])
+		if (rnk[x] > rnk[y])         //Make tree with smaller height a subtree of the other tree 
 			parent[y] = x;
-		else // If rnk[x] <= rnk[y]
+		else if(rnk[x] < rnk[y])
 			parent[x] = y;
-
-		if (rnk[x] == rnk[y])
+		else
+		{
+			parent[x] = y;
 			rnk[y]++;
+		}
 	}
 };
 
-/* Functions returns weight of the MST*/
 
-int Graph::kruskalMST()
+int Graph::kruskalMST()  /* Functions returns weight of the MST*/
 {
 	int mst_wt = 0; // Initialize result
 
-	// Sort edges in increasing order on basis of cost
-	sort(edges.begin(), edges.end());
+	sort(edges.begin(), edges.end());  // Sort edges in increasing order on basis of cost
 
-	// Create disjoint sets
-	DisjointSets ds(V);
+	//this disjoint set is mainly important
+	DisjointSets ds(V); //create disjoint set....to create...all we need is a 'parent' and 'rank' array -> **IMP** -> No need to make struct
 
-	// Iterate through all sorted edges
 	vector< pair<int, iPair> >::iterator it;
-	for (it=edges.begin(); it!=edges.end(); it++)
+	for (it=edges.begin(); it!=edges.end(); it++)  	// Iterate through all sorted edges
 	{
 		int u = it->second.first;
 		int v = it->second.second;
@@ -118,20 +100,13 @@ int Graph::kruskalMST()
 		int set_u = ds.find(u);
 		int set_v = ds.find(v);
 
-		// Check if the selected edge is creating
-		// a cycle or not (Cycle is created if u
-		// and v belong to same set)
-		if (set_u != set_v)
+		if (set_u != set_v)  //(Cycle is created if u and v belong to same set)
 		{
-			// Current edge will be in the MST
-			// so print it
-			cout << u << " - " << v << endl;
+			cout << u << " - " << v << endl;  // Current edge will be in the MST so print it
 
-			// Update MST weight
 			mst_wt += it->first;
 
-			// Merge two sets
-			ds.merge(set_u, set_v);
+			ds.merge(set_u, set_v);  // Merge two sets....while merging...find parents....then compare RANK OF PARENTS!
 		}
 	}
 
