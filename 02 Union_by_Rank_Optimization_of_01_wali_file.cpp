@@ -46,7 +46,8 @@ void unions(int x, int y)
 // The idea is to always attach smaller depth tree under the root of the deeper tree. 
     
 //we first found representative, now we compare RANK OF REPRESENTATIVES!
-    if(ranks[x_rep]<ranks[y_rep])  
+    
+    if(ranks[x_rep]<ranks[y_rep])     //FATAL ERROR => DONT compare/update rank/parent of x, y => instead do for x_rep, y_rep
         parent[x_rep] = y_rep;  
     
     else if(ranks[y_rep]<ranks[x_rep])
