@@ -45,10 +45,8 @@ int find(int x)
 {
     if(parent[x]==x)
         return x;
-    
-    parent[x] = find(parent[x]); //just 2 lines changed
-    
-    return parent[x];  //just 2 lines changed
+        
+    return parent[x] = find(parent[x]); //just 1 line changed
     
 }
 
